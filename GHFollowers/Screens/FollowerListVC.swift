@@ -38,15 +38,13 @@ class FollowerListVC: UIViewController {
     }
     
     func configureCollectionView() {
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createFlowLayout())
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
         collectionView.backgroundColor = .systemBackground
         collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
-        
-        collectionView.delegate = self // Set the delegate
         view.addSubview(collectionView)
+        collectionView.delegate = self // Set the delegate
         self.collectionView = collectionView
-        collectionView.layoutIfNeeded()
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
 //        
 //        NSLayoutConstraint.activate([
 //            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
@@ -56,11 +54,16 @@ class FollowerListVC: UIViewController {
 //        ])
     }
     
-    func createFlowLayout() -> UICollectionViewFlowLayout {
+    func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
+        let width = view.bounds.width
         let padding: CGFloat = 12
+        let minimumItemSpacing: CGFloat = 10
+        let availableWidth = width - (padding * 2) - (minimumItemSpacing * 2)
+        let itemWidth = availableWidth / 3
         
-        var flowLayout = UICollectionViewFlowLayout()
+        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 40)
         return flowLayout
     }
     
@@ -115,11 +118,11 @@ extension FollowerListVC: UICollectionViewDelegate {
 }
 
 extension FollowerListVC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { 
         let padding: CGFloat = 12
-        let minimumItemSpacing: CGFloat = 10
-        let availableWidth = width - (padding * 2) - (minimumItemSpacing * 2)
+        let collectionViewWidth = collectionView.bounds.width
+        let availableWidth = collectionViewWidth - (padding * 4)
+//        let availableWidth = width - (padding * 2) - (minimumItemSpacing * 2)
         let itemWidth = availableWidth / 3
         
         return CGSize(width: itemWidth, height: itemWidth + 40)
