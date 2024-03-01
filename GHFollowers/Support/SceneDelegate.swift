@@ -42,10 +42,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return UINavigationController(rootViewController: favoritesListVC)
     }
     
+    func createPaymentNC() -> UINavigationController {
+        let paymentVC = PaymentWebVC()
+        paymentVC.title = "Payment"
+        paymentVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured , tag: 3)
+        
+        return UINavigationController(rootViewController: paymentVC)
+    }
+    
     func createTabbar() -> UITabBarController {
         let tabbar = UITabBarController()
         UITabBar.appearance().tintColor = .systemGreen
-        tabbar.viewControllers = [createSearchNC(), createFavoritesNC()]
+        tabbar.viewControllers = [createSearchNC(), createFavoritesNC(), createPaymentNC()]
         
         return tabbar
     }

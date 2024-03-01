@@ -59,7 +59,7 @@ class FollowerListVC: UIViewController {
     func createFlowLayout() -> UICollectionViewFlowLayout {
         let padding: CGFloat = 12
         
-        var flowLayout = UICollectionViewFlowLayout()
+        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         return flowLayout
     }
